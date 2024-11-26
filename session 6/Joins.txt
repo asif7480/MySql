@@ -1,0 +1,69 @@
+/*
+Joins:
+It is used to combined two or more tables(entities), based on related column between them
+Types of Join:
+1- Inner Join: Contains only same data values  of table 1 and table 2
+2- Outer Join
+	i-   Left Join: Contains all data of table 1 and similar data between table 1 and table 2
+    ii-  Right Join: Contains all data of table 2 and similar data between table 2 and table 1
+    iii- Full Join: Combines all the data of table 1 and table 2
+*/ 
+
+CREATE DATABASE innerJoin;
+Use innerJoin;
+
+
+CREATE TABLE Students(
+	Student_id INT PRIMARY KEY,
+    Student_name varchar(50)
+);
+
+INSERT INTO Students VALUES 
+(144324, "Haris"),
+(144122, "Nawaz"),
+(144641, "Komal"),
+(144561, "Farhan"),
+(144922, "Aslam");
+
+CREATE TABLE Course(
+	Student_id INT PRIMARY KEY,
+    Course_name varchar(50)
+);
+drop table Course;
+INSERT INTO Course VALUES
+(144122, "ADSE"),
+(144561, "HDSE"),
+(144922, "DISM"),
+(144134, "HDSE"),
+(144421, "ADSE"),
+(144101, "HDSE");
+
+-- applyig inner join
+SELECT * FROM Students 
+INNER JOIN Course
+ON Students.Student_id = Course.Student_id;
+
+-- applying left join
+SELECT * FROM Students
+LEFT JOIN Course
+ON Students.Student_id = Course.Student_id;
+
+-- applying right join
+SELECT * FROM Students
+RIGHT JOIN Course
+ON Students.Student_id = Course.Student_id;
+
+-- applying full join 
+SELECT * FROM Students
+LEFT JOIN Course
+ON Students.Student_id = Course.Student_id
+UNION
+SELECT * FROM Students
+RIGHT JOIN Course
+ON Students.Student_id = Course.Student_id;
+
+
+-- applying cross join
+SELECT * FROM Students
+CROSS JOIN Course
+

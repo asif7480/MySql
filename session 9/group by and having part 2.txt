@@ -1,0 +1,91 @@
+-- group by and having clause
+
+-- the group by statement groups records into summary of rows and returns one records for each group. 
+
+-- the having clause in sql operates on grouped records and returns rows where aggregate function results matched with given condition only.
+use session10a;
+
+CREATE TABLE employees(
+	Emp_id int primary key,
+    Emp_name varchar(100),
+    Age INT,
+    Gender CHAR(1),
+    Date_of_join DATE,
+    dept VARCHAR(20),
+	City VARCHAR(20),
+    Salary DECIMAL(10,2)
+);
+
+INSERT INTO employees (Emp_id, Emp_name, Age, Gender, Date_of_join, dept, City, Salary)
+VALUES
+(1, 'Ali Khan', 28, 'M', '2022-01-15', 'HR', 'Karachi', 45000.00),
+(2, 'Sara Ahmed', 25, 'F', '2022-02-20', 'IT', 'Lahore', 40000.00),
+(3, 'Hassan Malik', 30, 'M', '2022-03-10', 'HR', 'Islamabad', 48000.00),
+(4, 'Ayesha Khan', 26, 'F', '2021-11-05', 'Finance', 'Karachi', 55000.00),
+(5, 'Ahmed Ali', 32, 'M', '2021-10-15', 'IT', 'Lahore', 60000.00),
+(6, 'Fatima Rehman', 28, 'F', '2022-04-25', 'Finance', 'Lahore', 52000.00),
+(7, 'Imran Khan', 33, 'M', '2021-08-12', 'Sales', 'Islamabad', 48000.00),
+(8, 'Nida Shah', 29, 'F', '2022-05-30', 'IT', 'Karachi', 54000.00),
+(9, 'Bilal Ahmed', 27, 'M', '2022-06-22', 'Sales', 'Lahore', 47000.00),
+(10, 'Zainab Ali', 31, 'F', '2021-09-10', 'Finance', 'Islamabad', 52000.00),
+(11, 'Kamran Khan', 28, 'M', '2022-07-18', 'HR', 'Karachi', 46000.00),
+(12, 'Amina Akhtar', 26, 'F', '2022-08-25', 'IT', 'Lahore', 48000.00),
+(13, 'Tariq Malik', 29, 'M', '2022-09-05', 'Finance', 'Karachi', 52000.00),
+(14, 'Farah Khan', 27, 'F', '2021-12-15', 'Sales', 'Islamabad', 49000.00),
+(15, 'Usman Ali', 30, 'M', '2022-10-10', 'HR', 'Karachi', 47000.00),
+(16, 'Sadia Ahmed', 25, 'F', '2022-11-20', 'Finance', 'Lahore', 51000.00),
+(17, 'Rizwan Malik', 33, 'M', '2021-07-08', 'IT', 'Karachi', 55000.00),
+(18, 'Nadia Khan', 29, 'F', '2022-12-28', 'Sales', 'Lahore', 46000.00),
+(19, 'Muneeb Akhtar', 32, 'M', '2023-01-05', 'HR', 'Islamabad', 49000.00),
+(20, 'Saima Ali', 27, 'F', '2023-02-15', 'IT', 'Karachi', 52000.00);
+
+SELECT * FROM employees;
+
+SELECT dept, AVG(salary) FROM employees GROUP BY dept;
+
+SELECT dept,gender, COUNT(gender) FROM employees GROUP BY dept, gender;
+
+SELECT gender, COUNT(gender) FROM employees GROUP BY gender;
+
+SELECT dept,AVG(age) FROM employees GROUP BY dept;
+
+-- using round function 
+SELECT dept,round(AVG(age),1) FROM employees GROUP BY dept;
+
+-- total salary in each department
+SELECT dept, SUM(salary) FROM employees GROUP BY dept; 
+
+-- counting employee of each department
+SELECT COUNT(emp_id), city FROM employees GROUP BY city; 
+
+-- using year function 
+SELECT year(Date_of_join) as year, count(emp_id) FROM employees GROUP BY year(Date_of_join) ORDER BY year ASC;
+
+-- using month function 
+SELECT month(Date_of_join) AS month, COUNT(emp_id) FROM employees GROUP BY month(Date_of_join) ORDER BY month ASC;
+
+-- having clause
+
+SELECT dept, AVG(salary) as average_salary FROM employees
+GROUP BY dept HAVING AVG(salary) < 50000; 
+
+SELECT city, SUM(salary) AS Total_salary FROM employees
+GROUP BY city HAVING SUM(salary) > 20000;
+
+
+SELECT dept, COUNT(*) AS emp_count FROM employees
+GROUP BY dept
+HAVING COUNT(*) >2;
+
+-- or
+
+SELECT dept, COUNT(emp_id) AS emp_count FROM employees
+GROUP BY dept
+HAVING COUNT(emp_id) >2;
+
+-- using where clause along with the having clause
+
+SELECT city, COUNT(*) AS emp_count FROM employees 
+WHERE city <> "Lahore"
+GROUP BY city
+HAVING COUNT(*) > 5;

@@ -1,0 +1,36 @@
+Steps to Download MySQL
+---------------------------
+1. Type mysql in chrome browser then click on the first link i.e mysql.com
+2. In mysql website click on downloads tab
+3. In the main section click on "MySQL Community (GPL) Downloads"
+4. Click on "MySQL Installer for Windows"
+5. Click on Windows (x86, 32-bit), MSI Installer download button.
+6. Click on "No just start my download link."
+
+Steps to install MySQL
+----------------------------
+1. Click on the executable file.
+2. Select custom download and click on next.
+3. Select following: 
+	Windows (x86, 32-bit), MSI Installer
+	Windows (x86, 32-bit), MSI Installer
+	Windows (x86, 32-bit), MSI Installer
+   then click next.
+
+4. Click on execute, once execution is completed click on next.
+5. Click on next.
+6. Keep everything as it is and click on next.
+7. Keep everything as it is and click on next.
+8. Enter password and repeat password and then click on next.
+9. Keep everything as it is and click on next.
+10. Keep everything as it is and click on next.
+11. Click on execute.
+12. Click on finish.
+13. Click on next.
+14. Click on finish.
+15. Go to C drive, then program files, then go to mysql folder, then go to mysql server folder, then bin, then copy path.
+16. go to start menu and type environment variables, click on edit system environment variables.
+17. click on environment varirables.
+18. Go the path section and double click on it.
+19. Click on new and paste the path and then click ok.
+

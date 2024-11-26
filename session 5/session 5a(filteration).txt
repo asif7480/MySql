@@ -1,0 +1,68 @@
+CREATE DATABASE session5a;
+USE session5a;
+
+CREATE TABLE `students info`(
+	student_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    grade VARCHAR(10),
+    marks INT,
+    address VARCHAR(255)
+);
+
+INSERT INTO students (student_id, name, email, grade, marks, address) 
+VALUES
+(1, 'Ali Ahmed', 'ali@example.com', 'A', 95, '123 Main Street, Lahore'),
+(2, 'Sara Khan', 'sara@example.com', 'B', 85, '456 Elm Street, Karachi'),
+(3, 'Ahmed Khan', 'ahmed@example.com', 'C', 75, '789 Oak Street, Islamabad'),
+(4, 'Fatima Ali', 'fatima@example.com', 'A', 92, '101 Pine Street, Lahore'),
+(5, 'Hassan Malik', 'hassan@example.com', 'B', 88, '202 Cedar Street, Karachi'),
+(6, 'Amina Farooq', 'amina@example.com', 'A', 94, '303 Maple Street, Islamabad'),
+(7, 'Bilal Khan', 'bilal@example.com', 'C', 72, '404 Oak Street, Karachi'),
+(8, 'Nadia Iqbal', 'nadia@example.com', 'B', 89, '505 Elm Street, Lahore'),
+(9, 'Usman Akhtar', 'usman@example.com', 'A', 96, '606 Pine Street, Islamabad'),
+(10, 'Sadia Ahmed', 'sadia@example.com', 'B', 87, '707 Cedar Street, Karachi'),
+(11, 'Kamran Ali', 'kamran@example.com', 'A', 93, '808 Oak Street, Lahore'),
+(12, 'Rabia Khan', 'rabia@example.com', 'C', 71, '909 Main Street, Islamabad'),
+(13, 'Fahad Malik', 'fahad@example.com', 'A', 98, '111 Pine Street, Karachi'),
+(14, 'Sana Farooq', 'sana@example.com', 'B', 84, '222 Cedar Street, Lahore'),
+(15, 'Adeel Hassan', 'adeel@example.com', 'C', 70, '333 Elm Street, Islamabad'),
+(16, 'Ayesha Iqbal', 'ayesha@example.com', 'A', 97, '444 Oak Street, Karachi'),
+(17, 'Waqar Ahmed', 'waqar@example.com', 'B', 86, '555 Pine Street, Lahore'),
+(18, 'Fariha Khan', 'fariha@example.com', 'A', 91, '666 Cedar Street, Islamabad'),
+(19, 'Imran Akhtar', 'imran@example.com', 'C', 73, '777 Main Street, Karachi'),
+(20, 'Mehreen Ali', 'mehreen@example.com', 'A', 99, '888 Elm Street, Lahore'),
+(21, 'Nabeel Ahmed', 'nabeel@example.com', 'B', 83, '999 Oak Street, Islamabad'),
+(22, 'Aisha Malik', 'aisha@example.com', 'C', 68, '1234 Pine Street, Karachi'),
+(23, 'Asad Khan', 'asad@example.com', 'A', 90, '5678 Cedar Street, Lahore'),
+(24, 'Zainab Iqbal', 'zainab@example.com', 'B', 80, '9876 Elm Street, Islamabad'),
+(25, 'Bilal Ahmed', 'bilal@example.com', 'C', 65, '5432 Oak Street, Karachi');
+
+-- relational operators 
+SELECT * FROM students;
+
+SELECT * FROM students WHERE marks < 80 ;
+SELECT * FROM students WHERE marks > 80 ;
+
+SELECT * FROM students WHERE marks <> 85;
+
+-- arithematic operator
+SELECT *,marks + 2 AS `incremented by two` FROM students;
+ 
+-- Logical operators 
+
+SELECT * FROM students WHERE marks > 80 AND marks < 85;
+
+SELECT * FROM students WHERE marks > 80 OR marks < 85;
+
+
+SELECT * FROM students WHERE marks between 80 AND 85;
+
+
+-- using limit
+SELECT * FROM students LIMIT 10; 
+
+-- order by  
+SELECT * FROM students order by Student_id DESC LIMIT 10;
+
+SELECT * FROM students ORDER BY marks ASC;

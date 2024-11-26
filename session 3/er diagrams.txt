@@ -1,0 +1,1 @@
+Develop an ER diagram for a hospital management system. Entities could involve Patient, Doctor, Appointment, and Medical Record.

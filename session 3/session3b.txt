@@ -1,0 +1,47 @@
+CREATE DATABASE session4;
+use session4;
+
+create table students(
+	SID int primary key,
+    Name varchar(100) not null
+);
+
+insert into students (SID, Name) 
+values 
+(101, "Ali"),
+(102, "Wasamat"),
+(103, "Hassan"),
+(104, "Usama"),
+(105, "Habib"),
+(106, "Waleed"),
+(107, "Aslam"),
+(108, "Qasim"),
+(109, "Zia"),
+(110, "Waqar");
+
+delete from students where SID = 105;
+select * from students;
+create table exam(
+	ECode int primary key, 
+    Subject varchar(100),
+    StudentID int,
+    FOREIGN KEY (StudentID) references students(SID) 
+    ON UPDATE CASCADE 
+    ON DELETE CASCADE
+);
+
+-- drop table exam;
+insert into exam(ECode, Subject, StudentID)
+values
+(1001, "HTML", 101),
+(1002, "JAVA", 102),
+(1003, "PHP", 103),
+(1004, "GOLANG", 104),
+(1005, "RUST", 105),
+(1006, "SOLIDITY", 106),
+(1007, "JSON", 107),
+(1008, "MYSQL", 108),
+(1009, "REACT", 109),
+(1010, "NODEJS",110);
+
+select * from exam;

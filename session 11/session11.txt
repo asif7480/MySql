@@ -1,0 +1,163 @@
+-- Stored Procedure: 
+-- Reusable block of code invoked on command
+-- Benefits:
+-- i. Consistency, ii. Reusability, iii. Efficiency
+
+-- Basic Syntax:
+-- Procedure Without Parameter
+-- CREATE PROCEDURE ProcedureName() SELECT column_name FROM table_name;
+
+-- Procedure With Parameter
+-- CREATE PROCEDURE ProcedureName(parameter_value INT) SELECT column_name FROM table_name WHERE value = parameter_value;
+
+-- Procedure Call
+-- CALL ProcedureName()
+
+-- Drop Procedure
+-- DROP PROCEDURE ProcedureName;
+
+
+CREATE DATABASE session11;
+USE session11;
+
+CREATE TABLE employees(
+	Emp_id int primary key,
+    Emp_name varchar(100),
+    Age INT,
+    Gender CHAR(1),
+    Date_of_join DATE,
+    dept VARCHAR(20),
+	City VARCHAR(20),
+    Salary DECIMAL(10,2)
+);
+
+INSERT INTO employees (Emp_id, Emp_name, Age, Gender, Date_of_join, dept, City, Salary)
+VALUES
+(1, 'Ali Khan', 28, 'M', '2022-01-15', 'HR', 'Karachi', 45000.00),
+(2, 'Sara Ahmed', 25, 'F', '2022-02-20', 'IT', 'Lahore', 40000.00),
+(3, 'Hassan Malik', 30, 'M', '2022-03-10', 'HR', 'Islamabad', 48000.00),
+(4, 'Ayesha Khan', 26, 'F', '2021-11-05', 'Finance', 'Karachi', 55000.00),
+(5, 'Ahmed Ali', 32, 'M', '2021-10-15', 'IT', 'Lahore', 60000.00),
+(6, 'Fatima Rehman', 28, 'F', '2022-04-25', 'Finance', 'Lahore', 52000.00),
+(7, 'Imran Khan', 33, 'M', '2021-08-12', 'Sales', 'Islamabad', 48000.00),
+(8, 'Nida Shah', 29, 'F', '2022-05-30', 'IT', 'Karachi', 54000.00),
+(9, 'Bilal Ahmed', 27, 'M', '2022-06-22', 'Sales', 'Lahore', 47000.00),
+(10, 'Zainab Ali', 31, 'F', '2021-09-10', 'Finance', 'Islamabad', 52000.00),
+(11, 'Kamran Khan', 28, 'M', '2022-07-18', 'HR', 'Karachi', 46000.00),
+(12, 'Amina Akhtar', 26, 'F', '2022-08-25', 'IT', 'Lahore', 48000.00),
+(13, 'Tariq Malik', 29, 'M', '2022-09-05', 'Finance', 'Karachi', 52000.00),
+(14, 'Farah Khan', 27, 'F', '2021-12-15', 'Sales', 'Islamabad', 49000.00),
+(15, 'Usman Ali', 30, 'M', '2022-10-10', 'HR', 'Karachi', 47000.00),
+(16, 'Sadia Ahmed', 25, 'F', '2022-11-20', 'Finance', 'Lahore', 51000.00),
+(17, 'Rizwan Malik', 33, 'M', '2021-07-08', 'IT', 'Karachi', 55000.00),
+(18, 'Nadia Khan', 29, 'F', '2022-12-28', 'Sales', 'Lahore', 46000.00),
+(19, 'Muneeb Akhtar', 32, 'M', '2023-01-05', 'HR', 'Islamabad', 49000.00),
+(20, 'Saima Ali', 27, 'F', '2023-02-15', 'IT', 'Karachi', 52000.00);
+
+SELECT * FROM session10b.employees;
+
+-- Stored Procedure with no parameter 
+CREATE PROCEDURE GetEmployeeDetails() SELECT * FROM employees;
+
+-- calling the stored procedure 
+CALL GetEmployeeDetails();
+
+-- Stored Procedure with Parameter
+CREATE PROCEDURE GetEmployeeAge(InputAge INT) SELECT * FROM employees WHERE Age = InputAge;  
+drop procedure GetEmployeeAge;
+CALL GetEmployeeAge(30);
+
+CREATE PROCEDURE GetEmployeeCity(InputCity VARCHAR(20)) SELECT * FROM employees WHERE City = InputCity;  
+CALL GetEmployeeCity("Karachi");
+
+
+-- Perform update and delete queries in stored procedures
+
+-- DELETE PROCEDURE
+CREATE PROCEDURE deleteRecord(idParam INT) DELETE FROM employees WHERE emp_id = idParam;
+
+CALL deleteRecord(2);
+
+CALL AllData();
+
+-- UPDATE PROCEDURE
+CREATE PROCEDURE updateRecord(idParam INT, nameParam VARCHAR(10), deptParam VARCHAR(10)) UPDATE employees SET emp_name= nameParam, dept=deptParam where emp_id= idParam;
+CALL updateRecord(4, "Ali", 'IT');
+DROP PROCEDURE updateRecord;
+call Alldata(); 
+
+
+-- Stored procedure Syntax for multiple lines of code
+ 
+DELIMITER //
+create procedure allData()
+BEGIN
+	SELECT * FROM employees;
+END //
+DELIMITER ;
+
+call allData();
+
+DELIMITER //
+CREATE PROCEDURE AgeData(ageParam INT)
+BEGIN
+	SELECT * FROM employees WHERE age = ageParam;
+END //
+DELIMITER ;
+
+Call AgeData(28);
+
+DELIMITER //
+CREATE PROCEDURE insertAndSee(IdParam INT, NameParam VARCHAR(25), salaryParam INT)
+BEGIN
+	INSERT INTO employees(emp_id, Emp_name, Salary) VALUES (IdParam, NameParam, salaryParam); 
+    SELECT * FROM employees;
+END //
+DELIMITER ;
+
+call insertAndSee(21, "Asif Khan", 35000);
+
+-- The IN keyword in stored procedure is used for passing parameter as input value.
+-- It is only used for reading value not for returning it.
+
+DELIMITER &&
+CREATE PROCEDURE EmployeeCity(IN addressParam varchar(20))
+BEGIN
+	SELECT * FROM employees WHERE address = addressParam;
+END &&
+DELIMITER ;
+
+
+CALL EmployeeCity("Karachi");
+
+-- The OUT keyword in stored procedure is used for returning a value from the stored procedure
+DELIMITER //
+CREATE PROCEDURE TaxDeductionFromSalary(IN salaryParam INT, OUT salaryAfterTax INT)
+BEGIN
+	SET salaryAfterTax = salaryParam - 50;
+
+END //
+DELIMITER ;
+
+drop procedure TaxDeductionFromSalary;
+
+CALL TaxDeductionFromSalary(1000, @tax);
+
+select @tax as TAX;
+
+
+-- INOUT works as both input and output
+
+DELIMITER //
+CREATE PROCEDURE IncrementCounter(INOUT counter INT)
+BEGIN
+    -- Increment the value of counter by 1.
+    SET counter = counter + 1;
+END //
+DELIMITER ;
+
+
+SET @myCounter := 5;
+CALL IncrementCounter(@myCounter);
+
+SELECT @myCounter;

@@ -1,0 +1,108 @@
+CREATE DATABASE session10a;
+USE session10a;
+-- builtin functions
+-- types of function
+-- i. Numeric function
+		-- a. Aggregate function 
+        -- b. Numeric function 
+-- ii. String function
+-- iii. Date function 
+-- iV. Comparision function 
+-- v. Control Flow function
+
+CREATE TABLE employees(
+	Emp_id int primary key,
+    Emp_name varchar(100),
+    Age INT,
+    Gender CHAR(1),
+    Date_of_join DATE,
+    dept VARCHAR(20),
+	City VARCHAR(20),
+    Salary DECIMAL(10,2)
+);
+
+INSERT INTO employees (Emp_id, Emp_name, Age, Gender, Date_of_join, dept, City, Salary)
+VALUES
+(1, 'Ali Khan', 28, 'M', '2022-01-15', 'HR', 'Karachi', 45000.00),
+(2, 'Sara Ahmed', 25, 'F', '2022-02-20', 'IT', 'Lahore', 40000.00),
+(3, 'Hassan Malik', 30, 'M', '2022-03-10', 'HR', 'Islamabad', 48000.00),
+(4, 'Ayesha Khan', 26, 'F', '2021-11-05', 'Finance', 'Karachi', 55000.00),
+(5, 'Ahmed Ali', 32, 'M', '2021-10-15', 'IT', 'Lahore', 60000.00),
+(6, 'Fatima Rehman', 28, 'F', '2022-04-25', 'Finance', 'Lahore', 52000.00),
+(7, 'Imran Khan', 33, 'M', '2021-08-12', 'Sales', 'Islamabad', 48000.00),
+(8, 'Nida Shah', 29, 'F', '2022-05-30', 'IT', 'Karachi', 54000.00),
+(9, 'Bilal Ahmed', 27, 'M', '2022-06-22', 'Sales', 'Lahore', 47000.00),
+(10, 'Zainab Ali', 31, 'F', '2021-09-10', 'Finance', 'Islamabad', 52000.00),
+(11, 'Kamran Khan', 28, 'M', '2022-07-18', 'HR', 'Karachi', 46000.00),
+(12, 'Amina Akhtar', 26, 'F', '2022-08-25', 'IT', 'Lahore', 48000.00),
+(13, 'Tariq Malik', 29, 'M', '2022-09-05', 'Finance', 'Karachi', 52000.00),
+(14, 'Farah Khan', 27, 'F', '2021-12-15', 'Sales', 'Islamabad', 49000.00),
+(15, 'Usman Ali', 30, 'M', '2022-10-10', 'HR', 'Karachi', 47000.00),
+(16, 'Sadia Ahmed', 25, 'F', '2022-11-20', 'Finance', 'Lahore', 51000.00),
+(17, 'Rizwan Malik', 33, 'M', '2021-07-08', 'IT', 'Karachi', 55000.00),
+(18, 'Nadia Khan', 29, 'F', '2022-12-28', 'Sales', 'Lahore', 46000.00),
+(19, 'Muneeb Akhtar', 32, 'M', '2023-01-05', 'HR', 'Islamabad', 49000.00),
+(20, 'Saima Ali', 27, 'F', '2023-02-15', 'IT', 'Karachi', 52000.00);
+
+-- Aggregate function 
+SELECT dept, AVG(salary) FROM employees GROUP BY dept;
+SELECT dept, MIN(age) AS `Minimum Employee Age` FROM employees GROUP BY dept;
+SELECT dept, MAX(age) AS `Maximum Employee Age` FROM employees GROUP BY dept;
+SELECT dept, COUNT(Emp_id) AS `Count of Employee Departmentwise`FROM employees GROUP BY dept;
+SELECT dept, SUM(Salary) FROM employees GROUP BY dept HAVING dept = "HR";
+
+-- Math function
+-- ROUND(), MOD()
+
+SELECT ROUND(AVG(age),1) FROM employees;
+SELECT MOD(age,2) AS `Even And Odd Age` FROM employees;
+ 
+ 
+-- String Functions
+-- CONCAT(), SUBSTR(), UCASE(), LCASE()
+SELECT CONCAT(emp_name, ' | ', city) AS `Emp with City` FROM employees;
+
+-- UCASE()
+SELECT UCASE(emp_name) FROM employees;
+
+-- LCASE()
+SELECT LCASE(emp_name) FROM employees;
+
+-- SUBSTR()
+SELECT SUBSTR(emp_name,1, 8) FROM employees;
+
+-- DATE functions()
+-- CURRENT_DATE()
+SELECT current_date();
+
+-- CURRENT_TIME()
+SELECT CURRENT_TIME();
+
+-- DATE_FORMAT()
+SELECT Emp_Name, DATE_FORMAT(Date_of_join, '%M') AS `Joining Month` FROM employees;
+SELECT Emp_Name, DATE_FORMAT(Date_of_join, '%Y') AS `Joining Year` FROM employees;
+SELECT Emp_Name, DATE_FORMAT(Date_of_join, '%D %M %Y') AS `Joining Month` FROM employees;
+
+-- DATEDIFF
+SELECT Emp_name, DATEdIFF(Date_of_join, Date_of_resign) AS `Total Work Duration` FROM employees;
+
+-- Comparision Function
+-- GREATEST()
+SELECT GREATEST(1QTR, 2QTR, 3QTR) AS `Highest Revenue` FROM table_name;
+
+-- LEAST()
+SELECT LEAST(1QTR, 2QTR, 3QTR) AS `Least Revenue` FROM table_name;
+
+-- ISNULL()
+SELECT * FROM employees WHERE ISNULL(Salary);
+
+-- Conditional Control Function
+
+SELECT emp_id,salary, 
+	CASE
+		WHEN salary >= 50000 THEN "High"
+        WHEN salary >= 45000 THEN "Average"
+        WHEN salary < 45000 THEN "Minimum"
+        ELSE "Salary Not Avaiable"
+	END AS Salary_Status
+FROM employees;

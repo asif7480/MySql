@@ -1,0 +1,28 @@
+USE partitions;
+
+CREATE TABLE Showroom(
+	ShowroomId INT,
+    ShowroomLocation VARCHAR(200),
+    Showroom_revenue INT
+)
+PARTITION BY LIST (ShowroomId)
+(
+	PARTITION PKarachi VALUES IN (3, 7),
+	PARTITION PLahore VALUES IN (1, 2)
+);
+
+
+
+INSERT INTO Showroom 
+VALUES 
+(1, "Karachi", 12000),
+(2, "Karachi", 22000),
+(2, "Lahore", 50000),
+(3, "Lahore", 47000),
+(7, "Lahore", 51000);
+
+SELECT * FROM Showroom partition (PKarachi);
+SELECT * FROM Showroom partition (PLahore);
+
+SELECT TABLE_NAME, PARTITION_NAME, TABLE_ROWS, AVG_ROW_LENGTH, DATA_LENGTH 
+FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_NAME = 'Showroom';

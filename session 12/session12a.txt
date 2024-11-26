@@ -1,0 +1,39 @@
+CREATE DATABASE session12a;
+USE session12a;
+-- partition by range 
+
+CREATE TABLE Student(
+	Student_id INT,
+    Name VARCHAR(100),
+    Course VARCHAR(10),                       
+    Registration_date DATE,
+    Monthly_fee INT,
+    Registration_fee INT,
+    PRIMARY KEY(Student_id, Registration_date)
+)PARTITION BY RANGE(YEAR(Registration_date))(
+	PARTITION p0 values less than (2021),
+	PARTITION p1 VALUES LESS THAN (2022),
+	PARTITION p2 VALUES LESS THAN (2023),
+	PARTITION p3 VALUES LESS THAN MAXVALUE
+);
+
+drop table student;
+
+INSERT INTO Student VALUES
+(1001, 'Asif Ahmed Khan', 'ADSE', '2022-02-02', 7000, 14000),
+(1002, 'Aymen Saleem', 'ADSE', '2022-02-04', 7000, 14000),
+(1003, 'Bilal Yousuf', 'CPISM', '2020-04-06', 4000, 11000),
+(1004, 'Wajeeha Waseem', 'HDSE', '2021-02-02', 5000, 13000),
+(1005, 'Ali Awan', 'CPISM', '2020-02-02', 4000, 11000),
+(1006, 'Zia Khan', 'HDSE', '2021-02-02', 5000, 13000),
+(1007, 'Komal Khan', 'CPISM', '2020-02-02', 4000, 11000),
+(1008, 'Moiz Aslam', 'HDSE', '2021-02-02', 5000, 13000),
+(1009, 'Wania Khan', 'HDSE', '2021-02-02', 5000, 13000),
+(1010, 'Qasim Shah', 'CPISM', '2020-02-02', 4000, 11000);
+
+
+SELECT TABLE_NAME, PARTITION_NAME, TABLE_ROWS  
+FROM INFORMATION_SCHEMA.PARTITIONS  
+WHERE TABLE_SCHEMA = 'session12a' AND TABLE_NAME = 'Student';  
+
+SELECT * FROM Student PARTITION(p2);

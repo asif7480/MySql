@@ -1,0 +1,29 @@
+CREATE DATABASE Aptech;
+USE Aptech;
+
+CREATE TABLE Students(
+	id int primary key,
+    name varchar(150)
+);
+
+
+insert into Students values
+(1, "abc"),
+(2, "def"),
+(3, "xyz");
+
+select * from Students;
+
+CREATE TABLE Exam(
+	Ecode int primary key,
+    subject varchar(150),
+    std_id int,
+    foreign key(std_id) references Students(id) on update cascade on delete cascade 
+);
+
+insert into Exam(Ecode, subject, std_id) values
+(101, "html", 1),
+(201, "css", 2),
+(301, "js", 3);
+
+select * from Exam;

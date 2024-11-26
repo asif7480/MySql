@@ -1,0 +1,41 @@
+-- ddl commands: 1. create, 2. drop, 3. truncate  4. alter
+CREATE DATABASE session1;
+USE session1;
+
+CREATE TABLE info(
+	id INT,
+    name varchar(50)
+);
+-- alter command for adding column in existing table 
+ALTER TABLE info ADD (contact INT);
+
+-- alter command for adding multiple columns in existing table 
+ALTER TABLE info ADD (email varchar(25), gender char(1));
+
+-- alter command for deleting column in existing table 
+ALTER TABLE info DROP COLUMN name;
+
+-- alter command for renaming column in existing table 
+ALTER TABLE info RENAME COLUMN id to Std_id;
+
+-- alter command for for modifying column in existing table 
+ALTER TABLE info MODIFY contact INT;
+
+DROP TABLE info;
+DROP DATABASE session1;
+
+-- dml commands: insert, update, delete 
+-- dql command: select
+select * from info;
+
+INSERT INTO info(Std_id, contact, email) VALUES (1001, 213458, "a.a.khan7489@gmail.com");
+
+INSERT INTO info VALUES (1002, 172458, "i.me@gmail.com");
+
+INSERT INTO info(std_id, contact) VALUES (1002, 746578);
+
+INSERT INTO info 
+VALUES 
+(1004, 75468, "example1@gmail.com"),
+(1005, 75787, "example2@gmail.com"),
+(1006, 75111, "example3@gmail.com");

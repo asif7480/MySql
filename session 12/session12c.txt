@@ -1,0 +1,33 @@
+-- partitioining with keys 
+CREATE DATABASE session12c;
+USE session12c;
+
+-- Create a partitioned table based on store_id
+CREATE TABLE Sales (
+    sale_id INT,
+    sale_date DATE,
+    amount DECIMAL(8, 2),
+    store_id INT
+)
+PARTITION BY KEY(store_id)
+PARTITIONS 4;  -- Create 4 partitions
+
+-- Insert data into the partitioned table
+INSERT INTO Sales (sale_id, sale_date, amount, store_id)
+VALUES
+(1, '2023-01-01', 100.00, 101),
+(2, '2023-01-02', 150.50, 102),
+(3, '2023-01-03', 200.25, 101),
+(4, '2023-01-04', 75.75, 103),
+(5, '2023-01-05', 300.00, 102),
+(6, '2023-01-06', 125.00, 101),
+(7, '2023-01-07', 175.50, 103),
+(8, '2023-01-08', 250.75, 102);
+
+-- Query data from the partitioned table
+-- Retrieve sales data for store_id = 101
+SELECT * FROM Sales WHERE store_id = 101;
+
+SELECT TABLE_NAME, PARTITION_NAME, TABLE_ROWS  
+FROM INFORMATION_SCHEMA.PARTITIONS  
+WHERE TABLE_SCHEMA = 'session12c' AND TABLE_NAME = 'sales';

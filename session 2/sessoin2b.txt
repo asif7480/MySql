@@ -1,0 +1,27 @@
+-- review of: update, delete, primary key, auto_increment
+create database example2;
+use example2;
+ 
+create table info(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    name varchar(100) not null,
+    course varchar(15)
+);
+
+insert into info(name, course) 
+values 
+("Ali", "ADSE"),
+("Aslam", "DISM"),
+("Ayaan", "CPISM"),
+("Wassy", "ADSE");
+
+UPDATE info SET name= "Waseem" where id = 1;
+UPDATE info SET name= "Maaz", course="HDSE" where id= 4;
+
+DELETE FROM info WHERE id =3;
+
+ 
+-- Deleting multiple ID
+DELETE FROM Students WHERE student_id in (1, 2); 
+
+select * from info

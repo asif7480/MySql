@@ -1,0 +1,50 @@
+-- group by and having clause
+
+-- the group by statement groups records into summary of rows and returns one records for each group. 
+
+-- the having clause in sql operates on grouped records and returns rows where aggregate function results matched with given condition only.
+CREATE DATABASE session9a;
+USE session9a;
+
+CREATE TABLE students(
+	student_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    grade VARCHAR(10),
+    marks INT,
+    address VARCHAR(255)
+);
+
+INSERT INTO students (student_id, name, email, grade, marks, address) 
+VALUES
+(1, 'Ali Ahmed', 'ali@example.com', 'A', 95, '123 Main Street, Lahore'),
+(2, 'Sara Khan', 'sara@example.com', 'B', 85, '456 Elm Street, Karachi'),
+(3, 'Ahmed Khan', 'ahmed@example.com', 'C', 75, '789 Oak Street, Islamabad'),
+(4, 'Fatima Ali', 'fatima@example.com', 'A', 92, '101 Pine Street, Lahore'),
+(5, 'Hassan Malik', 'hassan@example.com', 'B', 88, '202 Cedar Street, Karachi'),
+(6, 'Amina Farooq', 'amina@example.com', 'A', 94, '303 Maple Street, Islamabad'),
+(7, 'Bilal Khan', 'bilal@example.com', 'C', 72, '404 Oak Street, Karachi'),
+(8, 'Nadia Iqbal', 'nadia@example.com', 'B', 89, '505 Elm Street, Lahore'),
+(9, 'Usman Akhtar', 'usman@example.com', 'A', 96, '606 Pine Street, Islamabad'),
+(10, 'Sadia Ahmed', 'sadia@example.com', 'B', 87, '707 Cedar Street, Karachi');
+
+SELECT * FROM students;
+
+-- group by
+SELECT grade FROM students GROUP BY grade;
+
+-- group by and count function
+SELECT grade, COUNT(grade) FROM students GROUP BY grade;
+
+-- group by and max function
+SELECT grade, MAX(marks) FROM students GROUP BY grade;
+
+-- group by and min function
+SELECT grade, MIN(marks) FROM students GROUP BY grade; 
+
+-- group by and avg function
+SELECT grade, AVG(marks) FROM students GROUP BY grade; 
+
+-- group by and having clause
+SELECT grade, AVG(marks) FROM students GROUP BY grade HAVING AVG(marks) > 90;
+

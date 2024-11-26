@@ -1,0 +1,65 @@
+-- views
+CREATE DATABASE session8b;
+USE session8b;
+
+CREATE TABLE students(
+	student_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    grade VARCHAR(10),
+    marks INT,
+    address VARCHAR(255)
+);
+
+INSERT INTO students (student_id, name, email, grade, marks, address) 
+VALUES
+(1, 'Ali Ahmed', 'ali@example.com', 'A', 95, '123 Main Street, Lahore'),
+(2, 'Sara Khan', 'sara@example.com', 'B', 85, '456 Elm Street, Karachi'),
+(3, 'Ahmed Khan', 'ahmed@example.com', 'C', 75, '789 Oak Street, Islamabad'),
+(4, 'Fatima Ali', 'fatima@example.com', 'A', 92, '101 Pine Street, Lahore'),
+(5, 'Hassan Malik', 'hassan@example.com', 'B', 88, '202 Cedar Street, Karachi'),
+(6, 'Amina Farooq', 'amina@example.com', 'A', 94, '303 Maple Street, Islamabad'),
+(7, 'Bilal Khan', 'bilal@example.com', 'C', 72, '404 Oak Street, Karachi'),
+(8, 'Nadia Iqbal', 'nadia@example.com', 'B', 89, '505 Elm Street, Lahore'),
+(9, 'Usman Akhtar', 'usman@example.com', 'A', 96, '606 Pine Street, Islamabad'),
+(10, 'Sadia Ahmed', 'sadia@example.com', 'B', 87, '707 Cedar Street, Karachi');
+
+SELECT * FROM students;
+
+-- sql view is a virtual table created by fetching data from one or more tables by a sql query.
+-- Just like a tabel a view has the data in the form of rows and columns produced from referencing table. 
+-- operations on view: filteration using where clause, select column, group summarized data, apply join 
+-- syntax:
+
+-- CREATE VIEW view_name AS
+-- SELECT column1, column2, column3 N 
+-- FROM TABLE1, TABLE2, TABLEN
+-- WHERE condition;
+
+-- creating a view 
+CREATE VIEW students_view AS
+SELECT * FROM students;
+
+SELECT * FROM students_view;
+
+-- insert 
+
+INSERT INTO students_view 
+VALUES
+(11, 'Aymen Asif', 'aa@example.com', 'A', 95, 'Defence Phase 4, Karachi');
+
+-- update 
+
+update students_view
+SET grade = "A"
+WHERE student_id = 2;
+
+-- delete 
+
+delete from students_view
+WHERE student_id = 4; 
+
+SELECT * FROM students_view;
+
+-- drop 
+drop view students_view; 

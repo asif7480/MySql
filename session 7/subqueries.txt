@@ -1,0 +1,70 @@
+-- subqueries 
+CREATE DATABASE session7b;
+USE session7b;
+
+-- Create the employees table
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    firstname VARCHAR(255),
+    lastname VARCHAR(255),
+    contact VARCHAR(15),
+    designation VARCHAR(255),
+    address VARCHAR(255),
+    salary DECIMAL(10, 2),
+    experience INT CHECK (experience BETWEEN 1 AND 5)
+);
+
+-- Insert sample employee data
+INSERT INTO employees (emp_id, firstname, lastname, contact, designation, address, salary, experience) 
+VALUES
+(1, 'Ali', 'Khan', '123-456-7890', 'Manager', 'Karachi', 50000.00, 3),
+(2, 'Sara', 'Ahmed', '987-654-3210', 'Software Engineer', 'Lahore', 40000.00, 2),
+(3, 'Ahmed', 'Raza', '456-789-1230', 'Data Analyst', 'Islamabad', 35000.00, 1),
+(4, 'Fatima', 'Iqbal', '789-123-4560', 'HR Specialist', 'Karachi', 45000.00, 4),
+(5, 'Hassan', 'Malik', '234-567-8901', 'Sales Executive', 'Lahore', 38000.00, 2),
+(6, 'Amina', 'Farooq', '345-678-9012', 'Software Developer', 'Islamabad', 42000.00, 3),
+(7, 'Bilal', 'Khan', '567-890-1234', 'Finance Manager', 'Karachi', 55000.00, 5),
+(8, 'Nadia', 'Iqbal', '678-901-2345', 'Customer Support', 'Lahore', 32000.00, 1),
+(9, 'Usman', 'Akhtar', '789-012-3456', 'Data Scientist', 'Karachi', 48000.00, 4),
+(10, 'Sadia', 'Ahmed', '890-123-4567', 'Marketing Coordinator', 'Islamabad', 36000.00, 2),
+(11, 'Kamran', 'Ali', '123-456-7890', 'Manager', 'Karachi', 50000.00, 3),
+(12, 'Rabia', 'Khan', '987-654-3210', 'Software Engineer', 'Lahore', 40000.00, 2),
+(13, 'Fahad', 'Malik', '456-789-1230', 'Data Analyst', 'Islamabad', 35000.00, 1),
+(14, 'Sana', 'Farooq', '789-123-4560', 'HR Specialist', 'Karachi', 45000.00, 4),
+(15, 'Adeel', 'Hassan', '234-567-8901', 'Sales Executive', 'Lahore', 38000.00, 2);
+
+SELECT * FROM employees;
+
+
+-- without sub query 
+SELECT AVG(salary) FROM employees; 
+
+SELECT * FROM employees WHERE salary >= 41933.333333;
+
+
+-- implementing subquery
+SELECT * FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);
+
+CREATE TABLE new_employee(
+	emp_id INT PRIMARY KEY,
+    firstname VARCHAR(255),
+    lastname VARCHAR(255),
+    contact VARCHAR(15),
+    designation VARCHAR(255),
+    address VARCHAR(255),
+    salary DECIMAL(10, 2),
+    experience INT CHECK (experience BETWEEN 1 AND 5)
+);
+
+SELECT * FROM new_employee;
+
+INSERT INTO new_employee
+SELECT * FROM employees
+WHERE salary in (SELECT salary from employees WHERE salary > 40000);
+
+
+INSERT INTO new_employee
+SELECT *
+FROM employees
+WHERE salary > 40000;

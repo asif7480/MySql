@@ -1,0 +1,49 @@
+CREATE DATABASE school_db;
+
+USE school_db;
+
+CREATE TABLE Students(
+	Id INT AUTO_INCREMENT PRIMARY KEY,
+    Firstname VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    Enrollment_date DATE NOT NULL
+);
+
+INSERT INTO Students (FirstName, LastName, date_of_birth, Enrollment_date) VALUES 
+("Aslam", "Khan", '2022-10-23', '2012-1-1'),
+("Waseem", "Awan", '2001-1-1', '2012-12-4'),
+("Ali", "Johar", '2004-2-8', '2012-9-3'),
+("Asif", "Khan", '1999-6-9', '2012-10-2'),
+("Aymen", "Saleem", '1997-12-4', '1997-10-2');
+-- firstname starts with A 
+SELECT FirstName From Students WHERE FirstName LIKE 'A%';
+-- firstname ends with n 
+SELECT FirstName From Students WHERE FirstName LIKE '%n';
+
+-- firstname matches Asif 
+SELECT FirstName From Students WHERE FirstName LIKE '%Asif%';
+
+-- concatinating firstname and lastname
+SELECT concat(FirstName, ' ', LastName) AS FullName FROM Students;
+ 
+-- updating data in students table
+
+UPDATE Students SET Firstname = "Ayan" WHERE Id = 1; 
+
+-- Deleting a single ID 
+DELETE FROM Students WHERE Id = 2;
+ 
+-- Deleting multiple ID
+DELETE FROM Students WHERE Id in (1,3); 
+
+-- deleting data using logical keywords i.e AND
+DELETE FROM Students WHERE FirstName = "Waseem" AND LastName = "Awan"  ;
+
+-- deleting data using logical keywords i.e OR
+DELETE FROM Students WHERE FirstName = "Waseem" OR LastName = "Awan"  ;
+
+SELECT * FROM Students;
+-- DROP TABLE Students;
+
+
